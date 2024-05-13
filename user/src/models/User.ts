@@ -26,7 +26,7 @@ const UserSchema = new Schema(
     },
     isHotelOwner: {
       type: Boolean,
-      default: true,
+      default: false,
     }
   },
   {

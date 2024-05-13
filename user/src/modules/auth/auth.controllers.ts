@@ -1,5 +1,5 @@
 import { Controller } from "types/types";
-import { createUserService, getUserByEmailService } from "./auth.services";
+import { createUserService, getUserByEmailService, getUserById, updateUserService } from "./auth.services";
 import { generalResponse } from "helpers/common.helper";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
@@ -64,17 +64,26 @@ export const userRegister: Controller = async (req, res, next) => {
 export const userChangePassword: Controller = async (req, res, next) => {
   try {
     const { oldPassword, newPassword } = req.body;
-
-    
-    
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
-    
-    if (newUser) {
-      return generalResponse(res, null, "User created successfully");
-    } else {
-      return generalResponse(res, null, "Failed to create User", false);
+    if (oldPassword == newPassword) {
+      return generalResponse(res, null, "Password Cannot Be Same As Old", false, true, 400);
     }
+    
+    const userId = req.headers["x-user-id"] as string;
+    const user = await getUserById(userId);
+    if (!user) {
+      return generalResponse(res, null, "Invalid User", false, true, 400);
+    }
+    const isValidPassword = await bcrypt.compare(oldPassword, user.password);
+    if (!isValidPassword) {
+      return generalResponse(res, null, "Old Password is Invalid", false, true, 500);
+    }
+    const salt = await bcrypt.genSalt();
+    const newPasswordHash = await bcrypt.hash(newPassword, salt);
+    await updateUserService({
+      id: user.id,
+      password: newPasswordHash
+    })
+    return generalResponse(res, null, "Password Changed Successfuly.", false, true);
   } catch (error) {
     next(error);
   }

@@ -24,7 +24,15 @@ app.use(morganMiddleware);
 app.use(authMiddleware)
 
 //Setting Up Routes
-app.use('/user', proxy(USER_SERVICE_URL));
+app.use('/user', proxy(USER_SERVICE_URL, {
+  proxyReqOptDecorator: (proxyReq, expressReq) => {
+    const userData = expressReq["userData"];
+    console.log("Gateway userData",userData);
+    if(userData)
+      proxyReq.headers["x-user-id"] = userData.id;
+    return proxyReq;
+  }
+}));
 app.use('/hotel', proxy(HOTEL_SERVICE_URL));
 app.use('/booking', proxy(BOOKING_SERVICE_URL));
 

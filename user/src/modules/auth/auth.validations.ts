@@ -35,6 +35,7 @@ export const RegisterSchema = Joi.object({
     .label("Phone Number")
     .messages({ ...errorMessage }),
   isHotelOwner: Joi.boolean()
+    .default(false)
     .label("Hotel Owner Flag")
     .messages({ ...errorMessage }),
   email: Joi.string()

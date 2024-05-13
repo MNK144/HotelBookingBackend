@@ -22,7 +22,7 @@ app.use(morganMiddleware);
 initMongoDB();
 
 //Setting Up Routes
-app.use('/', UserRouter);
+// app.use('/', UserRouter);
 app.use('/', AuthRouter);
 
 app.get("/", async (req,res) => {

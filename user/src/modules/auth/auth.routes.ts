@@ -1,7 +1,7 @@
 import { Router } from "express";
 import validationMiddleware from "middlewares/validation.middleware";
 import { ChangePasswordSchema, LoginSchema, RegisterSchema } from "./auth.validations";
-import { userLogin, userRegister } from "./auth.controllers";
+import { userChangePassword, userLogin, userRegister } from "./auth.controllers";
 
 const AuthRouter = Router();
 const BASEPATH = "/auth";
