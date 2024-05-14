@@ -1,11 +1,12 @@
 import { Router } from "express";
 import validationMiddleware from "middlewares/validation.middleware";
+import { getUser, updateUser } from "./user.controllers";
+import { UpdateUserSchema } from "./user.validations";
 
 const UserRouter = Router();
 
 UserRouter.post(
   `/get`,
-  validationMiddleware(GetUserSchema),
   getUser
 );
 

@@ -1,9 +1,10 @@
 import { Controller } from "types/types";
-import { createUserService, getUserByEmailService, getUserById, updateUserService } from "./auth.services";
+import { createUserService, getUserByEmailService, getAuthUserById } from "./auth.services";
 import { generalResponse } from "helpers/common.helper";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 import { ACCESS_TOKEN_EXPIRE, ACCESS_TOKEN_SECRET } from "config/config";
+import { updateUserService } from "modules/user/user.services";
 
 export const userLogin: Controller = async (req, res, next) => {
   try {
@@ -69,7 +70,7 @@ export const userChangePassword: Controller = async (req, res, next) => {
     }
     
     const userId = req.headers["x-user-id"] as string;
-    const user = await getUserById(userId);
+    const user = await getAuthUserById(userId);
     if (!user) {
       return generalResponse(res, null, "Invalid User", false, true, 400);
     }
