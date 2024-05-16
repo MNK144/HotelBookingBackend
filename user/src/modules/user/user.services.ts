@@ -11,7 +11,6 @@ export async function updateUserService(userData: UpdateUserInterface) {
     firstName: userData.firstName,
     lastName: userData.lastName,
     phoneNumber: userData.phoneNumber,
-    isHotelOwner: userData.isHotelOwner,
     email: userData.email,
     password: userData.password,
   }, {

@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import { generalResponse } from 'helpers/common.helper';
 import Joi from 'joi';
+import logger from 'utils/logger';
 
 interface Error {
   message: string;
@@ -22,6 +23,7 @@ const validationMiddleware = (type: Joi.ObjectSchema): RequestHandler => {
       await type.validateAsync(req.body);
       next();
     } catch (error: any) {
+      logger.error("Validation error:",error);
       if (error.details) {
         const errorResponse = errorFilterValidator(error.details);
         return generalResponse(res, null, errorResponse, false, true, 400);

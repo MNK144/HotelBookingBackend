@@ -24,10 +24,6 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    isHotelOwner: {
-      type: Boolean,
-      default: false,
-    }
   },
   {
     timestamps: true,

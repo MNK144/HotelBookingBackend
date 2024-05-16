@@ -26,11 +26,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
           return generalResponse(res, null, "Unauthorized", false, false, 401);
         }
       }
-      const userData = {
-        id: decoded.id,
-        email: decoded.email,
-      }
-      req["userData"] = userData;
+      req["userData"] = decoded;
       next();
     });
   } catch (error) {

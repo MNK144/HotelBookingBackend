@@ -26,7 +26,6 @@ export const userLogin: Controller = async (req, res, next) => {
         firstName: user.firstName,
         lastName: user.lastName,
         phoneNumber: user.phoneNumber,
-        isHotelOwner: user.isHotelOwner
       },
     };
     return generalResponse(res, loginData);
@@ -37,7 +36,7 @@ export const userLogin: Controller = async (req, res, next) => {
 
 export const userRegister: Controller = async (req, res, next) => {
   try {
-    const { firstName, lastName, phoneNumber, isHotelOwner, email, password } = req.body;
+    const { firstName, lastName, phoneNumber, email, password } = req.body;
     const isExistingUser = await getUserByEmailService(email);
     if (isExistingUser) {
       return generalResponse(res, null, "User Already Exist!!", false, true, 409);
@@ -48,7 +47,6 @@ export const userRegister: Controller = async (req, res, next) => {
       firstName,
       lastName,
       phoneNumber,
-      isHotelOwner,
       email,
       password: passwordHash
     });

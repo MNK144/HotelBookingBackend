@@ -8,6 +8,7 @@ import { initMongoDB } from "config/mongodb";
 import errorMiddleware from "middlewares/error.middleware";
 import logger from "utils/logger";
 import morganMiddleware from "middlewares/morgan.middleware";
+import HotelRouter from "modules/hotel/hotel.routes";
 
 const app = express();
 const port = PORT || 8002;
@@ -21,9 +22,8 @@ app.use(morganMiddleware);
 initMongoDB();
 
 //Setting Up Routes
-// routes.forEach((route) => {
-//   app.use('/',route.router);
-// })
+app.use('/', HotelRouter);
+
 app.get("/", async (req,res) => {
   res.json({ 
     message: "HotelBooking HotelService Status: OK",

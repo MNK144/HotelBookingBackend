@@ -11,6 +11,7 @@ import errorMiddleware from "middlewares/error.middleware";
 import logger from "utils/logger";
 import morganMiddleware from "middlewares/morgan.middleware";
 import authMiddleware from "middlewares/auth.middleware";
+import { proxyOptions } from "config/proxy";
 
 const app = express();
 const port = PORT || 8000;
@@ -24,17 +25,9 @@ app.use(morganMiddleware);
 app.use(authMiddleware)
 
 //Setting Up Routes
-app.use('/user', proxy(USER_SERVICE_URL, {
-  proxyReqOptDecorator: (proxyReq, expressReq) => {
-    const userData = expressReq["userData"];
-    console.log("Gateway userData",userData);
-    if(userData)
-      proxyReq.headers["x-user-id"] = userData.id;
-    return proxyReq;
-  }
-}));
-app.use('/hotel', proxy(HOTEL_SERVICE_URL));
-app.use('/booking', proxy(BOOKING_SERVICE_URL));
+app.use('/user', proxy(USER_SERVICE_URL, proxyOptions));
+app.use('/hotel', proxy(HOTEL_SERVICE_URL, proxyOptions));
+app.use('/booking', proxy(BOOKING_SERVICE_URL, proxyOptions));
 
 app.get("/", async (req,res) => {
   res.json({ 
