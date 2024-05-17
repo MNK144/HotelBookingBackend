@@ -10,9 +10,8 @@ const RoomSchema = new Schema(
       type: String,
       required: true,
     },
-    basePrice: {
-      type: String,
-      required: true,
+    images: {
+      type: [String]
     },
     amenities: [{
       name: {
@@ -21,7 +20,6 @@ const RoomSchema = new Schema(
       },
       icon: {
         type: String,
-        required: false,
       }
     }],
     guests: [{
@@ -32,9 +30,17 @@ const RoomSchema = new Schema(
       price: {
         type: Number,
         required: true,
+      },
+      discount: {
+        type: Number, // Percent
+        default: 0,
+      },
+      taxCharges: {
+        type: Number, // Whole Amount
+        required: true,
       }
     }],
-    hotelID: {
+    hotel: {
       type: Types.ObjectId,
       ref: "Hotel",
       required: true,

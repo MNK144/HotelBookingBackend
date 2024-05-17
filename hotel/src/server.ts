@@ -9,6 +9,7 @@ import errorMiddleware from "middlewares/error.middleware";
 import logger from "utils/logger";
 import morganMiddleware from "middlewares/morgan.middleware";
 import HotelRouter from "modules/hotel/hotel.routes";
+import RoomRouter from "modules/room/room.routes";
 
 const app = express();
 const port = PORT || 8002;
@@ -23,6 +24,7 @@ initMongoDB();
 
 //Setting Up Routes
 app.use('/', HotelRouter);
+app.use('/', RoomRouter);
 
 app.get("/", async (req,res) => {
   res.json({ 

@@ -1,6 +1,6 @@
 import { generalResponse } from "helpers/common.helper";
 import { Controller } from "types/types";
-import { deleteHotelService, getHotelByIdService, upsertHotelService } from "./hotel.services";
+import { deleteHotelByIdService, getHotelByIdService, upsertHotelByIdService } from "./hotel.services";
 
 export const upsertHotel: Controller = async (req, res, next) => {
   try {
@@ -30,7 +30,7 @@ export const upsertHotel: Controller = async (req, res, next) => {
       }
     }
 
-    const updatedHotelData = await upsertHotelService({
+    const updatedHotelData = await upsertHotelByIdService({
       title,
       description,
       images: images,
@@ -60,10 +60,10 @@ export const deleteHotel: Controller = async (req, res, next) => {
     let hotelData = await getHotelByIdService(id);
     if(!hotelData) {
       return generalResponse(res, null, "Hotel not found", false, true, 404);
-    } else if(String(hotelData.ownerID) !== userId) {
+    } else if(hotelData.ownerID.toString() !== userId) {
       return generalResponse(res, null, "Unauthorized", false, true, 401);
     }
-    await deleteHotelService(id);
+    await deleteHotelByIdService(id);
     return generalResponse(res, null, "Hotel Deleted Successfully", true, true);
   } catch (error) {
     next(error);

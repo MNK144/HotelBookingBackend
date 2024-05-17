@@ -6,6 +6,7 @@ export const PUBLIC_ENDPOINTS = {
   "/user/auth/register": true,
   "/hotel": true,
   "/hotel/get-details": true,
+  "/hotel/room/get-details": true,
   "/booking": true,
   "/favicon.ico": true, // TEMP FOR TESTING (DUE TO BROWSER)
 }

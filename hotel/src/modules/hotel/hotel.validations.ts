@@ -96,12 +96,6 @@ export const HotelUpsertSchema = Joi.object({
       .max(100)
       .label("Country")
       .messages({ ...errorMessage }),
-    lat: Joi.number()
-      .label("lat")
-      .messages({ ...errorMessage }),
-    long: Joi.number()
-      .label("long")
-      .messages({ ...errorMessage }),
     checkIn: Joi.string()
       .required()
       .max(500)
@@ -114,8 +108,8 @@ export const HotelUpsertSchema = Joi.object({
       .messages({ ...errorMessage }),
   })
 }).options({
-    abortEarly: false,
-  });
+  abortEarly: false,
+});
 
 export const HotelIdSchema = Joi.object({
   id: Joi.string()

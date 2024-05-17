@@ -41,6 +41,10 @@ const HotelSchema = new Schema(
         required: false,
       }
     }],
+    rooms: {
+      type: [Types.ObjectId], 
+      ref: "Room"
+    },
     ownerID: {
       type: Types.ObjectId,
       required: true,
