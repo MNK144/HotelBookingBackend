@@ -10,6 +10,7 @@ import logger from "utils/logger";
 import morganMiddleware from "middlewares/morgan.middleware";
 import HotelRouter from "modules/hotel/hotel.routes";
 import RoomRouter from "modules/room/room.routes";
+import redis from "config/redis";
 
 const app = express();
 const port = PORT || 8002;

@@ -1,0 +1,13 @@
+FROM node:16.13.0
+
+WORKDIR /app/hotel
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 8002
+
+CMD ["npm", "start"]

@@ -1,0 +1,45 @@
+version: '3'
+services:
+  gateway:
+    build:
+      dockerfile: DockerFile
+      context: ./gateway
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - .:/app
+      - /app/gateway/node_modules
+
+  user:
+    build:
+      dockerfile: DockerFile
+      context: ./user
+    ports:
+      - "8001:8001"
+    restart: always
+    volumes:
+      - .:/app
+      - /app/user/node_modules
+      
+  hotel:
+    build:
+      dockerfile: DockerFile
+      context: ./hotel
+    ports:
+      - "8002:8002"
+    restart: always
+    volumes:
+      - .:/app
+      - /app/hotel/node_modules
+
+  booking:
+    build:
+      dockerfile: DockerFile
+      context: ./booking
+    ports:
+      - "8003:8003"
+    restart: always
+    volumes:
+      - .:/app
+      - /app/booking/node_modules

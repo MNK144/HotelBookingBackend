@@ -17,11 +17,11 @@ export const userLogin: Controller = async (req, res, next) => {
     if (!isMatch) {
       return generalResponse(res, null, "Invalid Credentials", false, true, 400);
     }
-    const accessToken = jwt.sign({ id: user._id, email: user.email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRE, });
+    const accessToken = jwt.sign({ id: user.id, email: user.email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRE, });
     const loginData = {
       accessToken,
       user: {
-        id: user._id,
+        id: user.id,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
